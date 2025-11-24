@@ -1,0 +1,88 @@
+FILE ="products.txt"
+products = []
+
+def load_products():
+    try:
+        with open(FILE, "r") as f:
+            for line in f:
+                name, market, rate = line.strip().split(",")
+                products.append({"name": name, "market": market, "rate": float(rate)})
+    except:
+        pass
+def save_products():
+    with open(FILE, "w") as f:
+        for p in products:
+            f.write(f"{p['name']},{p['market']},{p['rate']}\n")
+def add_product():
+    print("\nAdd Product")
+    name= input("Name: ").strip()
+    market =input("Market: ").strip()
+    try:
+        rate=float(input("Rate: "))
+        products.append({"name": name, "market": market, "rate": rate})
+        save_products()
+        print("Added!")
+    except:
+        print("Invalid rate")
+def view_products():
+    print("\nProducts:")
+    if not products:
+        print("None")
+        return
+    for i, p in enumerate(products, 1):
+        print(f"{i}. {p['name']} - {p['market']} - Rs {p['rate']}")
+
+def search_product():
+    term = input("\nSearch: ").lower()
+    for p in products:
+        if term in p["name"].lower():
+            print(f"{p['name']} | {p['market']} | Rs {p['rate']}")
+            return
+    print("Not found")
+def update_rate():
+    name = input("\nProduct to update: ").lower()
+    for p in products:
+        if p["name"].lower() == name:
+            try:
+                p["rate"] = float(input("New rate: "))
+                save_products()
+                print("Updated!")
+            except:
+                print("Invalid rate")
+            return
+    print("Not found")
+def delete_product():
+    name =input("\nProduct to delete: ").lower()
+    for p in products:
+        if p["name"].lower() == name:
+            products.remove(p)
+            save_products()
+            print("Deleted!")
+            return
+    print("Not found")
+def analytics():
+    if not products:
+        print("No data")
+        return
+    rates= [p["rate"] for p in products]
+    print(f"\nStats:\nMin: Rs {min(rates)}\nMax: Rs {max(rates)}\nAvg: Rs {sum(rates)/len(rates):.2f}")
+
+def menu():
+    load_products()
+    if not products:
+        products.append({"name":"Wheat", "market":"Market", "rate":2000})
+        save_products()
+    
+    while True:
+        print("\n1.Add 2.View 3.Search 4.Update 5.Delete 6.Stats 7.Exit")
+        choice =input("Choice: ")
+        if choice == "1": add_product()
+        elif choice== "2": view_products()
+        elif choice== "3": search_product()
+        elif choice =="4": update_rate()
+        elif choice == "5": delete_product()
+        elif choice =="6": analytics()
+        elif choice== "7": break
+        else: print("Invalid")
+
+menu()

@@ -1,0 +1,13 @@
+Wheat,Kanpur,55.0
+Rice,Delhi,3200.0
+wheat,ballia,32.0
+potato,kanpur,25.0
+tomato,lucknow,12.0
+rice,patna,35.0
+sugarcane,meerut,110.0
+corn,narahi,42.0
+pea,patlgna,40.0
+mango,lucknow,200.0
+garlic,varanasi,180.0
+pulse,ballia,55.0
+wheat,bhopal,60.0
